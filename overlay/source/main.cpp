@@ -2,6 +2,8 @@
 #include <tesla.hpp>    // The Tesla Header
 #include "ldn.h"
 
+using namespace tsl;
+
 enum class State {
     Uninit,
     Error,
@@ -15,7 +17,7 @@ char g_version[32];
 
 class EnabledToggleListItem : public tsl::elm::ToggleListItem {
 public:
-    EnabledToggleListItem() : ToggleListItem("Enabled", false) {
+    EnabledToggleListItem() : ToggleListItem("EnabledToggleListItemText"_tr, false) {
         u32 enabled;
         Result rc;
 
@@ -37,7 +39,7 @@ public:
 
 class LoggingToggleListItem : public tsl::elm::ToggleListItem {
 public:
-    LoggingToggleListItem() : ToggleListItem("Logging", false) {
+    LoggingToggleListItem() : ToggleListItem("LoggingToggleListItemText"_tr, false) {
         u32 enabled;
         Result rc;
 
@@ -59,17 +61,34 @@ public:
 
 class MainGui : public tsl::Gui {
 public:
-    MainGui() { }
+    MainGui() {
+        std::string jsonStr = R"(
+            {
+			    "PluginName": "ldn_mitm",
+			    "MainGuiOverlayFrameText": "ldn_mitm",
+			    "NotLoadedErrorMainGuiListItemText": "ldn_mitm is not loaded.",
+			    "WrongStateErrorMainGuiListItemText": "wrong state",
+			    "LoggingToggleListItemText": "Logging",
+			    "EnabledToggleListItemText": "Enabled"
+            }
+        )";
+        std::string lanPath = std::string("sdmc:/switch/.overlays/lang/") + APPTITLE + "/";
+        fsdevMountSdmc();
+        tsl::hlp::doWithSmSession([&lanPath, &jsonStr]{
+            tsl::tr::InitTrans(lanPath, jsonStr);
+        });
+        fsdevUnmountDevice("sdmc");
+    }
 
     virtual tsl::elm::Element* createUI() override {
-        auto frame = new tsl::elm::OverlayFrame("ldn_mitm", g_version);
+        auto frame = new tsl::elm::OverlayFrame("MainGuiOverlayFrameText"_tr, g_version);
 
         auto list = new tsl::elm::List();
 
         if (g_state == State::Error) {
-            list->addItem(new tsl::elm::ListItem("ldn_mitm is not loaded."));
+            list->addItem(new tsl::elm::ListItem("NotLoadedErrorMainGuiListItemText"_tr));
         } else if (g_state == State::Uninit) {
-            list->addItem(new tsl::elm::ListItem("wrong state"));
+            list->addItem(new tsl::elm::ListItem("WrongStateErrorMainGuiListItemText"_tr));
         } else {
             list->addItem(new EnabledToggleListItem());
             list->addItem(new LoggingToggleListItem());

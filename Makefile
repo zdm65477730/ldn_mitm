@@ -11,7 +11,7 @@ NRO_DIR     :=  $(SD_ROOT)/switch/ldnmitm_config
 TITLE_DIR   :=  $(SD_ROOT)/atmosphere/contents/4200000000000010
 OVERLAY_DIR :=  $(SD_ROOT)/switch/.overlays
 
-$(TOPTARGETS): PACK
+all: PACK
 
 $(SUBFOLDERS):
 	$(MAKE) -C $@ $(MAKECMDGOALS)
@@ -22,12 +22,15 @@ $(KIPS): Atmosphere-libs/libstratosphere
 PACK: $(SUBFOLDERS)
 	@ mkdir -p $(NRO_DIR)
 	@ mkdir -p $(TITLE_DIR)/flags
-	@ mkdir -p $(OVERLAY_DIR)
+	@ mkdir -p $(OVERLAY_DIR)/lang/$(KIPS)
 	@ cp ldnmitm_config/ldnmitm_config.nro $(NRO_DIR)/ldnmitm_config.nro
 	@ cp ldn_mitm/ldn_mitm.nsp $(TITLE_DIR)/exefs.nsp
 	@ cp overlay/overlay.ovl $(OVERLAY_DIR)/ldnmitm_config.ovl
+	@ cp -rf overlay/lang/* $(OVERLAY_DIR)/lang/$(KIPS)/
 	@ cp ldn_mitm/res/toolbox.json $(TITLE_DIR)/toolbox.json
 	@ touch $(TITLE_DIR)/flags/boot2.flag
 #---------------------------------------------------------------------------------
+clean:
+	@ rm -rf $(OUTDIR)
 
 .PHONY: $(TOPTARGETS) $(SUBFOLDERS)

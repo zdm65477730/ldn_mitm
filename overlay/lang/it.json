@@ -1,0 +1,8 @@
+{
+    "PluginName": "ldn_mitm",
+    "MainGuiOverlayFrameText": "ldn_mitm",
+    "NotLoadedErrorMainGuiListItemText": "ldn_mitm is not loaded.",
+    "WrongStateErrorMainGuiListItemText": "wrong state",
+    "LoggingToggleListItemText": "Logging",
+    "EnabledToggleListItemText": "Enabled"
+}
