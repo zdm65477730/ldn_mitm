@@ -110,7 +110,7 @@ public:
     }
 };
 
-class Overlay : public tsl::Overlay {
+class LdnmitmOverlay : public tsl::Overlay {
 public:
     virtual void initServices() override {
         g_state = State::Uninit;
@@ -152,5 +152,5 @@ public:
 };
 
 int main(int argc, char **argv) {
-    return tsl::loop<Overlay>(argc, argv);
+    return tsl::loop<LdnmitmOverlay>(argc, argv);
 }
