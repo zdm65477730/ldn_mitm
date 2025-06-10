@@ -66,7 +66,7 @@ namespace ams {
         alignas(os::MemoryPageSize) constinit u8 g_socket_tmem_buffer[GetLibnxBsdTransferMemorySize(std::addressof(LibnxSocketInitConfig))];
 
         constexpr const ::BsdInitConfig LibnxBsdInitConfig = {
-            .version             = 1,
+            .version = 1,
 
             .tmem_buffer         = g_socket_tmem_buffer,
             .tmem_buffer_size    = sizeof(g_socket_tmem_buffer),
