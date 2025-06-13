@@ -14,10 +14,10 @@ VERSION := $(VERSION)-$(GITREV)
 endif
 
 APP_AUTHOR  :=  spacemeowx2
-APP_TITLE   :=  ldnmitm cfg
+APP_TITLE   ?=  ldn_mitm
 APP_VERSION :=  $(VERSION)
 
-TARGET		:=	$(notdir $(CURDIR))
+TARGET		:=	$(APP_TITLE)
 BUILD		:=	build
 SOURCES		:=	source
 DATA		:=	data
