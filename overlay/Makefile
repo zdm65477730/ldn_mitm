@@ -37,13 +37,10 @@ include $(DEVKITPRO)/libnx/switch_rules
 #   of a homebrew executable (.nro). This is intended to be used for sysmodules.
 #   NACP building is skipped as well.
 #---------------------------------------------------------------------------------
-TARGET_VERSION := $(shell git describe --tags --dirty)
-VERSION_DEFINES	:= -DGITDESCVER="\"${TARGET_VERSION}\""
+APP_TITLE	?=	ldn_mitm
+VERSION_DEFINES	:= -DGITDESCVER="\"${APP_VERSION}\""
 
-APP_TITLE	:=	ldn_mitm
-APP_VERSION :=	${TARGET_VERSION}
-
-TARGET		:=	$(notdir $(CURDIR))
+TARGET		:=	$(APP_TITLE)
 BUILD		:=	build
 SOURCES		:=	source
 DATA		:=	data
@@ -59,9 +56,9 @@ ARCH	:=	-march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE
 CFLAGS	:=	-g -Wall -O2 -ffunction-sections \
 			$(ARCH) $(DEFINES) $(VERSION_DEFINES)
 
-CFLAGS	+=	$(INCLUDE) -D__SWITCH__
+CFLAGS	+=	$(INCLUDE) -D__SWITCH__ -DAPPTITLE=\"$(APP_TITLE)\"
 
-CXXFLAGS	:= $(CFLAGS) -fno-exceptions -std=c++20
+CXXFLAGS	:= $(CFLAGS) -fexceptions -std=c++20
 
 ASFLAGS	:=	-g $(ARCH)
 LDFLAGS	=	-specs=$(DEVKITPRO)/libnx/switch.specs -g $(ARCH) -Wl,-Map,$(notdir $*.map)
