@@ -39,16 +39,6 @@ PACK: $(SUBFOLDERS)
 	@ cp ldn_mitm/res/toolbox.json $(TITLE_DIR)/toolbox.json
 	@ touch $(TITLE_DIR)/flags/boot2.flag
 	@ cd $(CURDIR)/SdOut; zip -r -q -9 $(APP_TITLE).zip atmosphere switch; cd $(CURDIR)
-<<<<<<< HEAD
-
-#---------------------------------------------------------------------------------
-clean:
-	@ $(MAKE) -C ldn_mitm clean
-	@ $(MAKE) -C ldnmitm_config clean
-	@ $(MAKE) -C overlay clean
-	@ rm -rf $(OUTDIR)
-=======
->>>>>>> ef8b68f (add multi-lang support)
 
 #---------------------------------------------------------------------------------
 clean:
