@@ -12,10 +12,6 @@ jobs:
     if: contains(github.event.comment.body, '/release-action')
 
     steps:
-      - name: Update packages
-        run: |
-          sudo -n apt-get install -y zip python3 python3-pip python3-lz4
-        shell: bash
       - name: Update latest libnx
         run: |
           git config --global --add safe.directory "*"
