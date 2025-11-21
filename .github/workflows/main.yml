@@ -40,7 +40,7 @@ jobs:
           make all
         shell: bash
       - name: Upload Release Asset
-        uses: softprops/action-gh-release@v2.0.9
+        uses: softprops/action-gh-release@v2.6.1
         with:
           name: ${{ env.RELEASE_NAME }}
           tag_name: ${{ env.TAG }}
