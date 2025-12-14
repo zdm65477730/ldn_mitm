@@ -20,7 +20,7 @@ jobs:
           make install -j$(nproc)
         shell: bash
       - name: Checkout latest code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           ref: master
           clean: true
