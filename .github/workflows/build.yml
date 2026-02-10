@@ -26,9 +26,13 @@ jobs:
           pushd /tmp
           git clone https://github.com/switchbrew/libnx
           cd libnx
+          make clean
           make -j8 PREFIX="ccache aarch64-none-elf-"
           make install
           popd
+
+      - name: Clear invalid ccache after libnx update 
+        run: ccache -C
 
       - name: Build
         run: make -j8 PREFIX="ccache aarch64-none-elf-"
